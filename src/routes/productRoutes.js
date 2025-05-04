@@ -1,17 +1,17 @@
-import { Router } from 'express';
-import {
-  getAll,
-  create,
-  update,
-  remove,
-} from '../controllers/productController.js';
+const express = require('express');
+// Importa o framework Express
 
-const router = Router();
+const ProducController = require('../controllers/productController.js');
+// Importa o controller responsável por gerenciar as ações de produtos
 
-// Roteamento RESTful
-router.get('/', getAll);
-router.post('/', create);
-router.put('/:id', update);
-router.delete('/:id', remove);
+const router = express.Router();
+// Cria uma nova instância de roteador do Express
 
-export default router;
+// Define as rotas
+router.get('/', ProducController.getAll);
+router.post('/', ProducController.create);
+router.put('/:id', ProducController.update);
+router.delete('/:id', ProducController.remove);
+
+module.exports = router;
+// Exporta o roteador configurado para ser usado no app principal

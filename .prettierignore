@@ -1,4 +1,21 @@
+# Dependências
 node_modules/
+
+# Variáveis de ambiente
+.env
+
+# Banco de dados / dumps
+*.sql
+
+# Arquivos de sistema
+.DS_Store
+
+# Build (se for adicionado depois)
 dist/
 build/
-package-lock.json
+
+# Testes REST (não são arquivos de código)
+tests/*.rest
+
+# VS Code settings
+.vscode/

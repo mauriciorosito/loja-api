@@ -51,7 +51,7 @@ API RESTful simples para cadastro e gerenciamento de produtos, desenvolvida com 
      DB_HOST=localhost
      DB_USER=root
      DB_PASS=sua_senha
-     DB_NAME=loja
+     DB_NAME=loja_db
      ```
 
 4. Inicie o servidor:

@@ -1,37 +1,38 @@
-import {
-  getAllProducts,
-  getProductByName,
-  createProduct,
-  updateProduct,
-  deleteProduct,
-} from '../models/productModel.js';
+const ProductModel = require('../models/productModel');
+// Importa o Model responsável pelo acesso ao banco de dados (tabela products)
 
-import validateProduct from '../utils/validateProduct.js';
+const validateProduct = require('../utils/validateProduct');
+// Importa a função utilitária que valida os dados informados para  um produto
 
-// Serviço para listar todos os produtos
-export async function listProducts() {
-  return await getAllProducts();
-}
-
-// Serviço para criar produto, com validação
-export async function addProduct(product) {
-  validateProduct(product); // valida campos
-
-  const existing = await getProductByName(product.name);
-  if (existing) {
-    throw new Error('Produto com este nome já existe.');
+class ProductService {
+  // Serviço para listar todos os produtos
+  static async listProducts() {
+    return await ProductModel.getAllProducts();
   }
 
-  return await createProduct(product);
+  // Serviço para criar produto, com validação
+  static async addProduct(product) {
+    validateProduct(product); // valida campos
+
+    const existing = await ProductModel.getProductByName(product.name);
+    if (existing) {
+      throw new Error('Produto com este nome já existe.');
+    }
+
+    return await ProductModel.createProduct(product);
+  }
+
+  // Serviço para atualizar produto, com validação
+  static async editProduct(id, product) {
+    validateProduct(product);
+    await ProductModel.updateProduct(id, product);
+  }
+
+  // Serviço para deletar produto
+  static async removeProduct(id) {
+    await ProductModel.deleteProduct(id);
+  }
 }
 
-// Serviço para atualizar produto, com validação
-export async function editProduct(id, product) {
-  validateProduct(product);
-  await updateProduct(id, product);
-}
-
-// Serviço para deletar produto
-export async function removeProduct(id) {
-  await deleteProduct(id);
-}
+module.exports = ProductService;
+// Exporta a classe para ser utilizada pelos controllers
